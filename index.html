@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIDgallery</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #f00;
+      font-family: Arial, sans-serif;
+    }
+    header {
+      background-color: #111;
+      padding: 20px;
+      text-align: left;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .gallery {
+      padding: 20px;
+    }
+    .video {
+      background-color: #111;
+      border: 1px solid #f00;
+      padding: 10px;
+      margin-bottom: 15px;
+    }
+    video {
+      width: 100%;
+      height: auto;
+    }
+    .upload {
+      padding: 20px;
+    }
+    .upload input[type="file"] {
+      background-color: #111;
+      color: #f00;
+      border: 1px solid #f00;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    .upload button {
+      background-color: #f00;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    VIDgallery
+  </header>
+
+  <div class="upload">
+    <h2>Upload a Video</h2>
+    <input type="file" id="videoInput" accept="video/*">
+    <button onclick="uploadVideo()">Upload</button>
+  </div>
+
+  <div class="gallery" id="gallery">
+    <div class="video">
+      <video controls>
+        <source src="video1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="video">
+      <video controls>
+        <source src="video2.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+
+  <script>
+    function uploadVideo() {
+      const input = document.getElementById('videoInput');
+      const gallery = document.getElementById('gallery');
+
+      if (input.files.length > 0) {
+        const file = input.files[0];
+        const url = URL.createObjectURL(file);
+
+        const videoContainer = document.createElement('div');
+        videoContainer.classList.add('video');
+
+        const video = document.createElement('video');
+        video.controls = true;
+
+        const source = document.createElement('source');
+        source.src = url;
+        source.type = file.type;
+
+        video.appendChild(source);
+        videoContainer.appendChild(video);
+        gallery.prepend(videoContainer);
+      }
+    }
+  </script>
+</body>
+</html>
